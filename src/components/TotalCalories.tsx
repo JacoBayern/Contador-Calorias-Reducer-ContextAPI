@@ -1,19 +1,11 @@
-import { useMemo } from 'react'
-import { activity } from '../types'
 import CaloriesDisplay from './CaloriesDisplay'
-
-type TotalCaloriesProps = {
-    activities: activity[]
-}
-
-export default function TotalCalories( { activities} : TotalCaloriesProps) {
+import { useActivity } from '../hooks/useActivity'
 
 
-  const caloriesConsumed = useMemo( () => activities.reduce((total, activity) => activity.category === 1 ? total + activity.calories : total, 0 ), [activities])
 
-  const caloriesBurned = useMemo( () => activities.reduce( (total, activity) => activity.category === 2 ? total + activity.calories : total,  0 ), [activities])
+export default function TotalCalories() {
 
-  const totalCalories = useMemo( () => caloriesConsumed - caloriesBurned, [activities] )
+  const { caloriesConsumed, totalCalories, caloriesBurned} = useActivity()
 
   return (
     <>
